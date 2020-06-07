@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "mybatis-3-mapper.dtd">
+<mapper namespace="com.kuang.mapper.TaskMapper">
+
+    <insert id="insertTask" parameterType="com.kuang.pojo.Task">
+        insert into task values(#{task.taskId},#{task.userId},#{task.taskTitle},#{task.taskDescription},
+        #{task.taskViews},#{task.taskDate},#{task.taskLikeCount},#{task.taskAddress},#{task.parentSort},#{task.sonSort})
+    </insert>
+    <insert id="insertTaskPictures" parameterType="com.kuang.pojo.TaskPictures">
+        insert into pictures values(#{taskPictures.taskId},#{taskPictures.taskPicture})
+    </insert>
+    <select id="selectListToParent" resultType="com.kuang.pojo.Sorts">
+        select * from sorts where parent_sort_id = 0
+    </select>
+    <select id="selectListToSon" resultType="java.lang.String">
+        SELECT sort_name FROM sorts WHERE parent_sort_id = (SELECT sort_id FROM sorts WHERE sort_name = #{parentSort});
+    </select>
+    <select id="selectList" parameterType="java.lang.String" resultType="com.kuang.pojo.Sorts">
+        select * from sorts where parent_sort_id = (select sort_id from sorts where sort_name = #{parentSort})
+    </select>
+    <select id="selectListById" parameterType="java.lang.Integer" resultType="com.kuang.pojo.Sorts">
+        select * from sorts where parent_sort_id = #{parentSort}
+    </select>
+    <select id="selectAllTasks" resultType="com.kuang.pojo.Task">
+        select * from task
+    </select>
+    <select id="selectAllTaskPictures" parameterType="java.lang.String" resultType="com.kuang.pojo.TaskPictures">
+        select * from pictures where task_id = #{taskId}
+    </select>
+    <select id="selectAllTaskByUserId" parameterType="java.lang.Integer" resultType="com.kuang.pojo.Task">
+        select * from task where user_id = #{userId}
+    </select>
+</mapper>
+

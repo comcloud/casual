@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>详情页</title>
+
+  <link rel="stylesheet" type="text/css" href="/static/css/main_m.css">
+  <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+  <!-- 详情页评论加载 -->
+  <link rel="stylesheet" type="text/css" href="/static/css/main.css">
+  <script type="text/javascript" src="/static/layui/layui.js"></script>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+  <style>
+    #title_detail {
+      /* background-image: linear-gradient(120deg, #3498db, #8e44ad); */
+      background: linear-gradient(to right, red, blue);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    h1 {
+      position: relative;
+      color: yellow;
+    }
+
+    h1:before {
+      content: attr(text);
+      position: absolute;
+      z-index: 10;
+      color: pink;
+      -webkit-mask: linear-gradient(to left, red, transparent);
+    }
+  </style>
+
+</head>
+<script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
+
+<body>
+
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <a th:href="@{/user/toLogin}"> 登录</a>
+        <a th:href="@{/user/toRegister}"> &nbsp; &nbsp; 注册 </a>
+      </p>
+      <div class="sn-quick-menu">
+
+        <div><a th:href="@{/user/toPersonal}">个人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+        <i class="layui-icon layui-icon-notice"></i>
+        <a href="#">消息通知 &nbsp;&nbsp; </a>
+        &nbsp;
+        <a th:href="@{/user/logout}">注销</a>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="headerLayout w1200">
+
+      <div class="headerCon">
+
+        <h1 class="Logo">
+          <a th:href="@{/index}" title="logo">
+            <img src="/static/img/logo.png">
+          </a>
+        </h1>
+
+        <div class="Search">
+          <blockquote class="layui-elem-quote layui-quote-nm">
+            <h1 text="TO DO TOGETHER">TO DO TOGETHER</h1>
+          </blockquote>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="content-nav-base datails-content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+
+            <a style="color: #5FB878;"><b>FRIEND</b></a>
+            <a style="color: #FF5722"><b>LEARN</b></a>
+            <a style="color: #FFB800;"><b>SPORT</b></a>
+            <a style="color: #01AAED;"><b>TOGETH</b></a>
+            <a style="color: #2F4056;"><b>PLAY</b></a>
+            <a style="color: #FFB800;"><b>EAT</b></a>
+            <a style="color: #1E9FFF;"><b>RECRUIT</b></a>
+            <a style="color: #FF5722;"><b>DINNER</b></a>
+            <a style="color: #5FB878;"><b>FRIEND</b></a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="data-cont-wrap w1200">
+      <div class="crumb">
+        <span>></span>
+        <a href="javascript:;">详情页</a>
+      </div>
+      <div class="product-intro layui-clear">
+        <div class="preview-wrap">
+          <a href="javascript:;">
+            <img th:src="${taskpic}" width="200px" height="200px"
+                 th:each="taskpic,status:${task_pics.base64}">
+          </a>
+
+        </div>
+        <div class="itemInfo-wrap">
+          <div class="itemInfo">
+            <div class="title">
+              <h4><strong id="title_detail" th:text="${task_detail.taskTitle}"></strong></h4>
+              <span>
+                <i class="layui-icon layui-icon-praise"></i>
+                <a id="dianzancount" th:text="${task_detail.taskLikeCount}"></a>
+              </span>
+            </div>
+
+            <div class="summary">
+<!--              <p><span>分 类</span>-->
+<!--                <a th:text="${task_detail.parentSort}"></a>-->
+<!--              </p>-->
+<!--              <p><span>次 类</span><a th:text="${task_detail.sonSort}"></a></p>-->
+              <p><span>标 语</span><a th:text="${task_detail.taskDescription}"></a></p>
+            </div>
+
+            <div class="choose-attrs">
+              <div>
+                <p class="reference">
+                  <span>时&nbsp;&nbsp;&nbsp;&nbsp;间</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a th:text="${task_detail.taskDate}"></a>
+                </p>
+              </div>
+
+              <div>
+                <span class="title">地&nbsp;&nbsp;&nbsp;&nbsp;址</span>
+                <a th:text="${task_detail.taskAddress}"></a>
+              </div>
+            </div>
+
+            <div class="choose-btns">
+
+              <button class="layui-btn  layui-btn-danger car-btn">
+                <i class="layui-icon layui-icon-release"></i> 发起申请
+              </button>
+              <button id="thumbs" th:value="${task_detail.taskId}" class="layui-btn  layui-btn-danger car-btn">
+                <i class="layui-icon layui-icon-praise"></i> 点赞
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 评论 -->
+  <div class="content whisper-content">
+    <div class="cont">
+      <div class="whisper-list">
+        <!-- 评论的填写表单-->
+        <form class="layui-form" action="">
+          <div class="layui-form-item">
+            <label class="layui-form-label">输入评论</label>
+            <div class="layui-input-block">
+              <input type="text" id="commenttext" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <div class="layui-input-block">
+              <button id="commentbtn" th:value="${task_detail.taskId}" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+          </div>
+        </form>
+
+        <!-- 第一个框内 -->
+<!--        th:if="${commentsCollection.commentId}==${commentsCollection.parentCommentId}"-->
+        <div class="item-box" th:each="commentsCollection:${commentsCollections}">
+
+          <div class="item">
+            <div class="whisper-title">
+              <i class="layui-icon layui-icon-date"></i>
+              <span th:text="${commentsCollection.commentDate}"></span>
+            </div>
+            <p class="text-cont" th:text="${commentsCollection.commentContent}">
+            </p>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 分页标志 -->
+      <div id="demo" style="text-align: center;"></div>
+
+    </div>
+
+  </div>
+
+
+  <script type="text/javascript">
+    layui.config({
+      base: '/static/js/util/' //你存放新模块的目录，注意，不是layui的模块目录
+    }).use(['mm', 'jquery', 'element', 'laypage', 'form', 'menu'], function () {
+      // 详情页上半部分
+      var mm = layui.mm, $ = layui.$;
+      var cur = $('.number-cont input').val();
+      $('.number-cont .btn').on('click', function () {
+        if ($(this).hasClass('add')) {
+          cur++;
+
+        } else {
+          if (cur > 1) {
+            cur--;
+          }
+        }
+        $('.number-cont input').val(cur)
+      })
+
+      element = layui.element, laypage = layui.laypage, form = layui.form, menu = layui.menu;
+      laypage.render({
+        elem: 'demo'
+        , count: 70 //数据总数，从服务端得到
+      });
+      menu.init();
+      menu.off();
+      menu.submit()
+    });
+
+    //评论
+    document.getElementById('commentbtn').addEventListener('click',function () {
+      $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "/toGiveAdvice/"+$("#commentbtn").val(),
+        data: {'commenttext':$("#commenttext").val()},
+        contentType: "application/json",
+        success: function (data) {
+
+        }
+      })
+
+    })
+
+    //点赞
+    document.getElementById('thumbs').addEventListener('click',function () {
+      $.ajax({
+        type: "get",
+        dataType: "json",
+        url: "/toGivethethumbs/"+$("#thumbs").val(),
+        contentType: "application/json",
+        success: function (data) {
+        }
+      })
+
+      //点赞实时提现在前端
+      $("#dianzancount").text(parseInt($("#dianzancount").text())+1);
+
+    })
+  </script>
+
+</body>
+
+
+
+
+</html>

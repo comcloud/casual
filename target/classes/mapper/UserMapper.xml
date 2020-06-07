@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kuang.mapper.UserMapper">
+
+    <update id="updateUser" parameterType="com.kuang.pojo.User">
+        update users
+        set user_qq_number = #{user.userQqNumber,jdbcType=VARCHAR},
+        user_name = #{user.userName},
+        user_password = #{user.userPassword},
+        user_email = #{user.userEmail},
+        user_profile_photo = #{user.userProfilePhoto},
+        user_registration_time = #{user.userRegistrationTime},
+        user_birthday = #{user.userBirthday},
+        user_telephone_number = #{user.userTelephoneNumber},
+        user_nickname = #{user.userNickName},
+        personal_signature = #{user.personalSignature}
+        where user_id = #{user.userId}
+    </update>
+    <select id="selectOne" parameterType="java.lang.Integer" resultType="com.kuang.pojo.User">
+        select * from users where user_id = #{userId}
+    </select>
+    <update id="updateUserPictures" parameterType="com.kuang.pojo.UserPictures">
+        update userPictures values(#{userPictures.userId},#{userPictures.userPictures})
+    </update>
+</mapper>

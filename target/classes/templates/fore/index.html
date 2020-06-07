@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>首页</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/main_m.css" >
+  <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+  <script type="text/javascript" src="/static/layui/layui.js"></script>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+</head>
+
+
+<body id="list-cont">
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+
+        <a th:href="@{/user/toLogin}"> 登录</a>
+
+        <a th:href="@{/user/toRegister}"> &nbsp; &nbsp; 注册 </a>
+      </p>
+
+      <div class="sn-quick-menu">
+        <div><a th:href="@{/user/toPersonal}">个人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+
+        <i class="layui-icon layui-icon-notice"></i>
+        <a href="#">消息通知 &nbsp;&nbsp; </a>
+
+        &nbsp;
+        <a th:href="@{/user/logout}">注销</a>
+
+      </div>
+
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="headerLayout w1200">
+      <div class="headerCon">
+
+        <h1 class="Logo">
+          <a th:href="@{/index}" title="logo">
+            <img th:src="@{/static/img/logo.png}">
+          </a>
+        </h1>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button type="button" class="layui-btn layui-btn-radius layui-btn-warm" id="Tiko">
+          <img src="../../static/img/jiqiren.png" width="23px" height="23px">
+        </button>
+
+        <!-- 搜索-->
+        <div class="Search">
+          <form th:action="@{/toSearchFromName}" method="get" class="layui-form" novalidate>
+
+            <input type="text" name="searchName" required lay-verify="required" autocomplete="off" class="layui-input"
+              placeholder="请输入需要查找的请求">
+
+            <button class="layui-btn" lay-submit lay-filter="formDemo">
+              <i class="layui-icon layui-icon-search"></i>
+            </button>
+
+            <input type="hidden" name="" value="">
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+            <!-- 导航栏 -->
+            <ul class="layui-nav" lay-filter="">
+
+              <!-- 大分类-->
+              <li class="layui-nav-item" th:each="sort:${sorts}" th:value="${sort.getSortId()}">
+                <a th:href="@{/toBigSortsPage/}+${sort.getSortName()}" th:text="${sort.getSortName()}"></a>
+
+                <!-- 二级菜单（小分类） -->
+                <dl class="layui-nav-child">
+
+                  <dd th:each="smallsort:${smallsorts}" th:if="${smallsort.getParentSortId()}==${sort.getSortId()}">
+                    <a th:href="@{/toSortsPage/}+${smallsort.getSortName()}" th:text="${smallsort.getSortName()}"></a>
+                  </dd>
+
+                </dl>
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="category-con">
+      <div class="category-inner-con w1200">
+        <div class="category-type">
+          <h3>新闻资讯</h3>
+        </div>
+      </div>
+      <div class="category-banner">
+
+        <div class="w1200">
+
+          <!-- 轮播图 -->
+          <div class="layui-carousel" id="roll">
+            <div carousel-item>
+              <div>
+                <img th:src="@{/static/img/2_new.png}">
+              </div>
+              <div>
+                <img th:src="@{/static/img/3_new.png}">
+              </div>
+              <div>
+                <img th:src="@{/static/img/1_new.png}">
+              </div>
+              <div>
+                <img th:src="@{/static/img/4_new.png}">
+              </div>
+              <div>
+                <img th:src="@{/static/img/5_new.png}">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-list-box" id="product-list-box">
+      <div class="product-list-cont w1200">
+        <h4>已发布内容</h4>
+        <!-- 默认分割线 -->
+        <hr>
+        <hr class="layui-bg-red">
+        <hr class="layui-bg-orange">
+        <hr class="layui-bg-green">
+        <hr class="layui-bg-cyan">
+        <hr class="layui-bg-blue">
+        <hr class="layui-bg-gray">
+
+        <div class="product-item-box layui-clear">
+
+          <div class="list-item" th:each="task:${tasks}">
+            <a th:href="@{/toDetailsPage/}+${task.obj.taskId}">
+              <img th:if="${status.first}==true" th:src=" ${taskpic}" height="150" width="200" th:each="taskpic,status:${task.base64}">
+            </a>
+            <!--suppress ThymeleafVariablesResolveInspection -->
+            <p style="text-align: center;" th:text="${task.obj.parentSort}">请求父分类名</p>
+            <!--suppress ThymeleafVariablesResolveInspection -->
+            <span th:text="${task.obj.sonSort}">请求子分类名</span>
+            <!--suppress ThymeleafVariablesResolveInspection -->
+            <span id="color_title_task" th:text="${task.obj.taskTitle}">请求标题</span>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="ng-promise-box">
+      <div class="ng-promise w1200">
+        <p class="text">
+          <a class="layui-icon" href="javascript:;">&#xe672; 信息认证</a>
+          <a class="layui-icon" href="javascript:;">&#xe613; 人脸识别</a>
+          <a class="layui-icon" style="margin-right: 0" href="javascript:;">&#xe674; 网站督查</a>
+        </p>
+      </div>
+    </div>
+    <div class="mod_help w1200">
+      <p class="coty">justyou网站版权所有 &copy; 2012-2030</p>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+
+    layui.config({
+      base: '/static/js/util/' //你存放新模块的目录，注意，不是layui的模块目录
+    }).use(['mm', 'carousel'], function () {
+      var carousel = layui.carousel,
+        mm = layui.mm;
+      var option = {
+        elem: '#test1'
+        , width: '100%' //设置容器宽度
+        , arrow: 'always'
+        , height: '298'
+        , indicator: 'none'
+      }
+      carousel.render(option);
+
+    });
+
+    //轮播图
+    layui.use('carousel', function () {
+      var carousel = layui.carousel;
+      //建造实例
+      carousel.render({
+        elem: '#roll'
+        , width: '100%' //设置容器宽度
+        , arrow: 'always' //始终显示箭头
+        // ,anim: 'updown' //切换动画方式
+        , height: '400px'
+        // ,width: '800px'
+      });
+    });
+
+    //注意：导航 依赖 element 模块，否则无法进行功能性操作
+    layui.use('element', function () {
+      var element = layui.element;
+
+    });
+
+    //语音助手点击事件
+    document.getElementById('Tiko').addEventListener('click',function () {
+      $.ajax({
+        type: "post",
+        dataType: "json",
+        url: "/user/SpeechTiko",
+        contentType: "application/json",
+        success: function (data) {
+          if(data.select === 1){
+
+          }else if(data.select === 2){
+            location.href = "/toBigSortsPage/"+data.info;
+          }else if(data.select === 3){
+            location.href = "/toSortsPage/"+data.info;
+          }
+        }
+      })
+
+    })
+  </script>
+</body>
+
+</html>

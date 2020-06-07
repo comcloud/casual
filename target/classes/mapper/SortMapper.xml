@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "mybatis-3-mapper.dtd">
+<mapper namespace="com.kuang.mapper.SortMapper">
+
+    <select id="selectSortNameBySortId" parameterType="java.lang.Integer" resultType="java.lang.String">
+            select sort_name from sorts where sort_id = #{sortId}
+    </select>
+</mapper>

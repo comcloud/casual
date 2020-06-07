@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册页</title>
+    <link rel="stylesheet" href="/static/layui/css/layui.css">
+
+    <style>
+        body{
+            background: url(/static/img/register_bgpic.png);
+        }
+    </style>
+
+</head>
+
+<body>
+<br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br>
+<div class="layui-row">
+    <div class="layui-col-md3">
+        <br>
+
+    </div>
+
+    <div class="layui-col-md4 layui-col-md-offset1">
+
+        <!-- 表单 -->
+        <form class="layui-form" th:action="@{/addUser}" method="get">
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="user_nickname" required lay-verify="required" placeholder="请输入昵称"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">账号</label>
+                <div class="layui-input-block">
+                    <input type="text" name="user_name" required lay-verify="required" placeholder="请输入账号"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" name="user_password" required lay-verify="required" placeholder="请输入密码"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" lay-submit lay-filter="formDemo">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="/static/layui/layui.js"></script>
+<script>
+
+</script>
+</body>
+
+</html>

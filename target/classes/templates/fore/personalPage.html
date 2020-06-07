@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title>个人主页-personal</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/layui/css/layui.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/main.css}">
+    <!--加载meta IE兼容文件-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" th:src="@{/static/js/jquery-3.4.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jquery-1.11.3.min.js}"></script>
+
+    <style>
+        .error_message {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div class="header">
+    <div class="menu-btn">
+        <div class="menu"></div>
+    </div>
+    <h1 class="logo">
+        <a th:href="@{/index}">
+            <span>justyou</span>
+            <img th:src="@{/static/img/logo.png}">
+        </a>
+    </h1>
+    <div class="nav">
+        <a th:href="@{/user/personalPage}"><i class="layui-icon" style="color: #FFB800;">&#xe66f;</i> 信息</a>
+        <a th:href="@{/user/personalSpace}"><i class="layui-icon" style="color: #FF5722">&#xe600;</i> 空间</a>
+        <a th:href="@{/user/publish}"><i class="layui-icon" style="color: #5FB878;">&#xe609;</i> 发布</a>
+        <a th:href="@{/user/personalInfo}"><i class="layui-icon" style="color: #1E9FFF">&#xe60b;</i> 关于</a>
+    </div>
+    <ul class="layui-nav header-down-nav">
+        <li class="layui-nav-item"><a th:href="@{/user/personalPage}" class="active"><i class="layui-icon"
+                                                                                        style="color: #5FB878;">&#xe66f;</i>
+            信息</a></li>
+        <li class="layui-nav-item"><a th:href="@{/user/personalSpace}"><i class="layui-icon" style="color: #5FB878;">&#xe600;</i>
+            空间</a>
+        </li>
+        <li class="layui-nav-item"><a th:href="@{/user/publish}"><i class="layui-icon"
+                                                                    style="color: #5FB878;">&#xe609;</i> 发布</a>
+        </li>
+        <li class="layui-nav-item"><a th:href="@{/user/personalInfo}"><i class="layui-icon" style="color: #5FB878;">&#xe60b;</i>
+            关于</a></li>
+    </ul>
+    <p class="welcome-text">
+        欢迎您！<span class="name" th:text="${session.userNickName}">张香香</span>
+    </p>
+</div>
+
+<div class="banner">
+    <div class="cont w1000">
+
+        <div class="title">
+            <h3>Info <h4>to complete</h4>
+            </h3>
+        </div>
+
+    </div>
+</div>
+
+<div class="content">
+    <div class="cont w1000">
+        <div class="title">
+        <span class="layui-breadcrumb" lay-separator="|">
+          <a href="javascript:;" class="active">拼搏</a>
+          <a href="javascript:;">智慧</a>
+          <a href="javascript:;">从容</a>
+        </span>
+        </div>
+
+        <div class="list-item">
+            <div class="layui-container">
+                <!-- 常规布局（以中型屏幕桌面为例）： -->
+                <div class="layui-row">
+                    <div class="layui-col-md6">
+                        <!-- 6/12 -->
+                        <!-- 表单 -->
+                        <!-- upload 模块 进行文件上传，上传时参看layui文档
+                          https://www.layui.com/doc/modules/upload.html -->
+                        <form class="layui-form" action="">
+                            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                <legend>个人信息填写</legend>
+                            </fieldset>
+                            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                                <legend>头像上传</legend>
+                            </fieldset>
+                            <div class="layui-upload">
+                                <button type="button" class="layui-btn" id="test1">上传</button>
+                                <div class="layui-upload-list">
+                                    <img class="layui-upload-img" height="120px" width="120px" id="demo1">
+                                    <p id="demoText"></p>
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">昵称</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_nick_name" id="user_nick_name" required
+                                           lay-verify="required"
+                                           placeholder="可更改或添入原昵称"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">用户名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_name" id="user_name" required lay-verify="username"
+                                           placeholder="可更改或添入原用户名"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">密码</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_password_one" id="user_password_one" min="7" max="15"
+                                           required lay-verify="password"
+                                           placeholder="可更改或添入原密码"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">密码</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_password_two" id="user_password_two" required
+                                           lay-verify="password"
+                                           placeholder="请再次输入密码"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">QQ号</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_qq_number" id="user_qq_number" required
+                                           lay-verify="required" placeholder="请输入qq号"
+                                           pattern="[1-9]([0-9]{4,10})" title="请输入正确qq号码" autocomplete="off"
+                                           class="layui-input">
+                                </div>
+                            </div>
+
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">用户邮箱</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_email" id="user_email"
+                                           pattern="\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}" required
+                                           lay-verify="required" placeholder="请输入邮箱"
+                                           title="请输入正确邮箱格式" autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">电话号码</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_telephone_number" id="user_telephone_number" required
+                                           lay-verify="required" placeholder="请输入国内手机号"
+                                           autocomplete="off" pattern="0?(13|14|15|18)[0-9]{9}" title="请输入大陆手机号格式"
+                                           class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">生日</label>
+
+                                <div class="layui-inline">
+                                    <!-- 注意：这一层元素并不是必须的 -->
+                                    <input type="text" name="user_birthday" id="user_birthday" class="layui-input">
+                                </div>
+
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label">个人签名</label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="user_signature" id="user_signature" required
+                                           lay-verify="required" placeholder="请输入标题"
+                                           autocomplete="off" class="layui-input">
+                                </div>
+                            </div>
+                            <br>
+                            <div class="error_message">
+                                <p id="error_message_p"></p>
+                            </div>
+                            <br>
+
+                            <div class="layui-form-item">
+                                <div class="layui-input-block">
+                                    <button class="layui-btn">立即提交</button>
+                                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="layui-col-md4 layui-col-md-offset2">
+                        <!-- 4/12 -->
+                        <div class="qrcode">
+                            <img th:src="@{/static/img/sidebar.png}">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <br><br><br>
+    <br><br> <br>
+    <div class="footer-wrap">
+        <div class="footer w1000">
+            <div class="qrcode">
+                <img th:src="@{/static/img/buttombar.gif}">
+            </div>
+            <div class="practice-mode">
+                <div class="text">
+                    <h4 class="title">问题咨询</h4>
+                    <p>QQ<span class="QQ">2738290192</span></p>
+                    <p>手机<span class="iphone">1829928392</span></p>
+                    <p>邮箱<span class="email">2378491029@qq.com</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" th:src="@{/static/layui/layui.js}"></script>
+
+    <script type="text/javascript">
+        layui.config({
+            base: '/static/js/util/'
+        }).use(['element', 'laypage', 'jquery', 'menu'], function () {
+            element = layui.element, laypage = layui.laypage, $ = layui.$, menu = layui.menu;
+            laypage.render({
+                elem: 'demo'
+                , count: 70 //数据总数，从服务端得到
+            });
+            menu.init();
+        });
+
+        var imageData;
+        //我们强烈推荐你在代码最外层把需要用到的模块先加载
+        layui.use(['layer', 'form', 'element', 'upload', 'laydate'], function () {
+            var form = layui.form;
+            var upload = layui.upload;
+            var $ = layui.$;
+            //普通图片上传
+            var uploadInst = upload.render({
+                elem: '#test1'
+                , url: '/user/uploadUserHeadImage' //改成您自己的上传接口
+                , before: function (obj) {
+                    //预读本地文件示例，不支持ie8
+                    obj.preview(function (index, file, result) {
+                        imageData = result;
+                        $('#demo1').attr('src', result); //图片链接（base64）
+                    });
+                }
+                , done: function (res) {
+                    //如果上传失败
+                    if (res.code > 0) {
+                        return layer.msg('上传失败');
+                    }
+                    //上传成功
+                }
+                , error: function () {
+                    //演示失败状态，并实现重传
+                    var demoText = $('#demoText');
+                    demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                    demoText.find('.demo-reload').on('click', function () {
+                        uploadInst.upload();
+                    });
+                }
+            });
+            form.verify({
+                username: function (value, item) { //value：表单的值、item：表单的DOM对象
+                    if (!new RegExp("^[a-zA-Z0-9_\u4e00-\u9fa5\\s·]+$").test(value)) {
+                        return '用户名不能有特殊字符';
+                    }
+                    if (/(^\_)|(\__)|(\_+$)/.test(value)) {
+                        return '用户名首尾不能出现下划线\'_\'';
+                    }
+                    if (/^\d+\d+\d$/.test(value)) {
+                        return '用户名不能全为数字';
+                    }
+                }
+
+                //我们既支持上述函数式的方式，也支持下述数组的形式
+                //数组的两个值分别代表：[正则匹配、匹配不符时的提示文字]
+                , password: function (value) {
+                    var $userPasswordOne = $("#user_password_one").val();
+                    var $userPasswordTwo = $("#user_password_two").val();
+                    if (/^[\S]{6,12}$/.test($userPasswordOne)) {
+                        return "密码必须6到12位，且不能出现空格";
+                    } else if ($userPasswordOne !== $userPasswordTwo) {
+                        return "两次输入的密码不一致";
+                    }
+                }
+            });
+            // form.on("submit(formDemo)", function () {
+            // })
+
+            //layDate日期
+            layui.use('laydate', function () {
+                var laydate = layui.laydate;
+                //执行一个laydate实例
+                laydate.render({
+                    elem: '#user_birthday' //指定元素
+                });
+            });
+
+
+        });
+
+
+        $('form').submit(function () {
+            window.event.returnValue=false;
+            let user = {
+                userQqNumber: $('#user_qq_number').val(),
+                userName: $('#user_name').val(),
+                userNickName: $('#user_nick_name').val(),
+                userPassword: $('#user_password_one').val(),
+                userEmail: $('#user_email').val(),
+                userBirthday: $('#user_birthday').val(),
+                userTelephoneNumber: $('#user_telephone_number').val(),
+                userSignature: $('#user_signature').val(),
+                userHeadImageData: imageData
+            };
+            $.ajax({
+                async: false,
+                url: '/user/edit/save',
+                type: 'post',
+                data: {"user":JSON.stringify(user)},
+                dataType: 'json',
+                contentType: 'application/json',
+                success: function (data) {
+                    if (data.success) {
+                        alert("保存用户信息成功");
+                        location.href = "/user/personalInfo";
+                    }else {
+                        alert("发生未知错误，将重新登录");
+                        location.href = "/user/toLogin"
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    alert(textStatus);
+                }
+            })
+        })
+
+    </script>
+</div>
+</body>
+</html>

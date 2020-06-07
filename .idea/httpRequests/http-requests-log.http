@@ -1,0 +1,32 @@
+POST http://localhost:8085/user/personalPage?file=&user_nick_name=asdf&user_name=asdf&user_password_one=asdf&user_password_two=asdf&user_qq_number=234124&user_email=23523%40qq.com&user_telephone_number=13523327374&user_birthday=2020-06-05&user_signature=asdf&file=&user_nick_name=asdf&user_name=asdf&user_password_one=asdf&user_password_two=asdf&user_qq_number=234124&user_email=23523%40qq.com&user_telephone_number=13523327374&user_birthday=2020-06-05&user_signature=asdf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-06-05T102241.200.html
+
+###
+
+POST http://localhost:8085/user/personalPage?file=&user_nick_name=asdf&user_name=asdf&user_password_one=asdf&user_password_two=asdf&user_qq_number=234124&user_email=23523%40qq.com&user_telephone_number=13523327374&user_birthday=2020-06-05&user_signature=asdf&file=&user_nick_name=asdf&user_name=asdf&user_password_one=asdf&user_password_two=asdf&user_qq_number=234124&user_email=23523%40qq.com&user_telephone_number=13523327374&user_birthday=2020-06-05&user_signature=asdf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-06-05T101957.200.html
+
+###
+
+GET http://localhost:8085/user/personalPage?file=&user_nick_name=asdf&user_name=asdf&user_password_one=asdf&user_password_two=asdf&user_qq_number=234124&user_email=23523%40qq.com&user_telephone_number=13523327374&user_birthday=2020-06-05&user_signature=asdf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-06-05T101945.200.html
+
+###
+
+POST http://localhost:8085/user/personalPage?file=&user_nick_name=asdf&user_name=asdf&user_password_one=asdf&user_password_two=asdf&user_qq_number=234124&user_email=23523%40qq.com&user_telephone_number=13523327374&user_birthday=2020-06-05&user_signature=asdf
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-06-05T101910.200.html
+
+###
+

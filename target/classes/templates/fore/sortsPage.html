@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>分类页</title>
+  <link rel="stylesheet" type="text/css" href="/static/css/main_m.css">
+  <link rel="stylesheet" type="text/css" href="/static/layui/css/layui.css">
+  <script type="text/javascript" src="/static/layui/layui.js"></script>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+
+  <style>
+    #title {
+      background: linear-gradient(to right, red, blue);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="site-nav-bg">
+    <div class="site-nav w1200">
+      <p class="sn-back-home">
+        <a th:href="@{/user/toLogin}"> 登录</a>
+        <a th:href="@{/user/toRegister}"> &nbsp; &nbsp; 注册 </a>
+      </p>
+      <div class="sn-quick-menu">
+        <div><a th:href="@{/user/toPersonal}">个人&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></div>
+        <i class="layui-icon layui-icon-notice"></i>
+        <a href="#">消息通知 &nbsp;&nbsp; </a>
+        &nbsp;
+        <a th:href="@{/user/logout}">注销</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="header">
+    <div class="headerLayout w1200">
+      <div class="headerCon">
+        <h1 class="Logo">
+          <a th:href="@{/index}" title="logo">
+            <img src="/static/img/logo.png">
+          </a>
+        </h1>
+        <div class="Search">
+          <blockquote class="layui-elem-quote">
+            TO &nbsp;&nbsp;&nbsp;&nbsp; 
+            FIND &nbsp;&nbsp;&nbsp;&nbsp;   
+            YOUR &nbsp;&nbsp;&nbsp;&nbsp;   
+            <strong id="title">FRIEND</strong>
+          </blockquote>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content content-nav-base sortpage-content">
+    <div class="main-nav">
+      <div class="inner-cont0">
+        <div class="inner-cont1 w1200">
+          <div class="inner-cont2">
+            <span class="layui-badge-dot"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-orange">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-green">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-cyan"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-blue"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-black"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-gray"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-orange">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-green">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-cyan"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-blue"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-black"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-gray"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-orange">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-green">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-cyan"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-blue"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-black"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-gray"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-orange">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-green">&nbsp;</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <span class="layui-badge-dot layui-bg-cyan"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sortpage-cont-wrap">
+      <div class="sort-cont w1200 layui-clear">
+        <div class="left-nav">
+          <div class="title">所有分类</div>
+          <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side">    layui-nav-itemed默认展开侧边栏-->
+            <li class="layui-nav-item layui-nav-itemed" th:each="sort:${sorts}" th:value="${sort.sortId}">
+              <a href="javascript:;" th:text="${sort.sortName}"></a>
+              <dl class="layui-nav-child">
+                <dd th:each="smallsort:${smallsorts}" th:if="${smallsort.parentSortId}==${sort.sortId}">
+                  <a th:href="@{/toSortsPage/}+${smallsort.sortName}" th:text="${smallsort.sortName}"></a>
+                </dd>
+              </dl>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 遍历请求-->
+        <div class="right-cont-wrap">
+          <div class="right-cont">
+            <div class="cont-list layui-clear" id="list-cont">
+
+              <div class="item" th:each="Sorts_page:${Sorts_pages}">
+
+                <div class="img">
+                  <a th:href="@{/toDetailsPage/}+${Sorts_page.obj.taskId}">
+                    <img th:if="${status.first}==true" th:src="${sortpic}" height="280" width="277" th:each="sortpic,status:${Sorts_page.base64}"></a>
+                </div>
+                <div class="text">
+                  <p class="title" th:text="${Sorts_page.obj.sonSort}"></p>
+
+                  <p class="price">
+                    <span class="pri" th:text="${Sorts_page.obj.taskTitle}"></span>
+                    <span class="nub" >
+                      <i class="layui-icon layui-icon-praise"></i>
+                      <a th:text="${Sorts_page.obj.taskLikeCount}"></a>
+                    </span>
+                  </p>
+
+                </div>
+
+              </div>
+            </div>
+
+            <div id="demo0" style="text-align: center;"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <script>
+
+    layui.config({
+      base: '/static/js/util/' //你存放新模块的目录，注意，不是layui的模块目录
+    }).use(['mm', 'laypage', 'jquery'], function () {
+      var laypage = layui.laypage, $ = layui.$,
+        mm = layui.mm;
+      laypage.render({
+        elem: 'demo0'
+        , count: 100 //数据总数
+      });
+
+
+      $('.sort a').on('click', function () {
+        $(this).addClass('active').siblings().removeClass('active');
+      })
+      $('.list-box dt').on('click', function () {
+        if ($(this).attr('off')) {
+          $(this).removeClass('active').siblings('dd').show()
+          $(this).attr('off', '')
+        } else {
+          $(this).addClass('active').siblings('dd').hide()
+          $(this).attr('off', true)
+        }
+      })
+
+    });
+  </script>
+
+
+</body>
+
+</html>

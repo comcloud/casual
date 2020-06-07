@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--命名空间输入对应接口位置-->
+<mapper namespace="com.kuang.mapper.IndexMapper">
+
+    <select id="getlogin"  parameterType="java.lang.String" resultType="com.kuang.pojo.User">
+        select * from users where user_name=#{user_name} and user_password=#{user_password};
+    </select>
+
+    <insert id="getregister" parameterType="java.lang.String">
+        insert into users(user_nickname,user_name,user_password)
+        values (#{user_nickname},#{user_name},#{user_password});
+    </insert>
+
+    <select id="getall" parameterType="int" resultType="com.kuang.pojo.Sorts">
+        select * from sorts where parent_sort_id = #{parent_id};
+    </select>
+
+    <select id="gettaskfromname" parameterType="java.lang.String" resultType="com.kuang.pojo.Task">
+        select * from task where task_son_sort = #{sort_name};
+    </select>
+
+    <select id="getallsmallsorts" parameterType="int" resultType="com.kuang.pojo.Sorts">
+        select * from sorts where not (parent_sort_id = #{parent_sort_id});
+    </select>
+
+    <select id="gettask" resultType="com.kuang.pojo.Task">
+        select * from task;
+    </select>
+
+    <select id="gettaskfromid" parameterType="java.lang.String" resultType="com.kuang.pojo.Task">
+        select * from task where task_id = #{task_id};
+    </select>
+
+    <select id="getcomments" parameterType="java.lang.String" resultType="com.kuang.pojo.Comments">
+        select * from comments where task_id = #{task_id};
+    </select>
+
+    <select id="getpic" resultType="com.kuang.pojo.TaskPictures">
+        select * from  pictures;
+    </select>
+
+    <select id="selectByUuid" parameterType="java.lang.String" resultType="com.kuang.pojo.User">
+        select * from users where user_uuid = #{uuid};
+    </select>
+
+    <insert id="insertOne" parameterType="com.kuang.pojo.User">
+        insert into users(user_nickname,user_name,user_password,user_uuid)
+        values (#{user.userNickName},#{user.userName},#{user.userPassword},#{user.userUuid});
+    </insert>
+
+    <select id="selectUserByUserId" parameterType="int" resultType="com.kuang.pojo.User">
+        select * from users where user_id = #{parseInt};
+    </select>
+
+    <select id="gettaskfrombigsortname" parameterType="java.lang.String" resultType="com.kuang.pojo.Task">
+        select * from task where task_parent_sort = #{bigsort_name};
+    </select>
+
+    <select id="getbigsortname" resultType="java.lang.String">
+        select sort_name from sorts where parent_sort_id = #{parent_sort_id};
+    </select>
+
+    <select id="getsmallsortname" resultType="java.lang.String">
+        select sort_name from sorts where not (parent_sort_id = #{parent_sort_id});
+    </select>
+
+    <select id="gettaskfromsearchname" parameterType="com.kuang.pojo.Task" resultType="com.kuang.pojo.Task">
+        select * from task
+            where task_title like "%"#{task.taskTitle}"%"
+            or task_address like "%"#{task.taskAddress}"%"
+            or task_parent_sort like "%"#{task.parentSort}"%"
+            or task_son_sort like "%"#{task.sonSort}"%";
+    </select>
+
+    <select id="getalltaskPic" parameterType="java.lang.String" resultType="com.kuang.pojo.TaskPictures">
+        select * from pictures where task_id = #{taskId};
+    </select>
+
+    <insert id="setcomment" useGeneratedKeys="true" keyProperty="commentId">
+        insert into comments(user_id, task_id, comment_date,comment_content)
+        values (#{userId},#{task_id},#{commentTime},#{commenttext});
+    </insert>
+
+    <update id="updatecomment" parameterType="java.lang.Long">
+        update comments set parent_comment_id = #{commentId} where comment_id = #{commentId};
+    </update>
+    
+    <update id="addtasklikecount" parameterType="java.lang.String">
+        update task set task_like_count = task_like_count + 1 where task_id = #{task_id};
+    </update>
+
+    <insert id="addcommentformid" parameterType="com.kuang.pojo.Comments">
+        insert into comments(user_id,task_id,comment_date,comment_content)
+        values (#{comments.userId},#{comments.taskId},#{comments.commentDate},#{comments.commentContent});
+    </insert>
+</mapper>
